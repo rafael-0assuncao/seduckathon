@@ -13,20 +13,20 @@ def main(page: ft.Page):
         value="Painel de Controle", 
         size=28, 
         weight=ft.FontWeight.BOLD,
-        color=ft.Colors.BLUE_400
+        color="blue400"  # String direta ao invés de ft.Colors
     )
     
     mensagem_boas_vindas = ft.Text(
         value="Por favor, identifique-se abaixo.", 
         size=16, 
-        color=ft.Colors.GREY_400
+        color="grey400"
     )
 
     # Campo onde o usuário vai digitar o nome
     campo_nome = ft.TextField(
         label="Nome de Usuário",
         hint_text="Digite seu nome aqui...",
-        border_color=ft.Colors.BLUE_400,
+        border_color="blue400",
         width=300,
     )
 
@@ -34,22 +34,21 @@ def main(page: ft.Page):
     def atualizar_dashboard(e):
         if campo_nome.value.strip() == "":
             mensagem_boas_vindas.value = "Por favor, digite um nome válido!"
-            mensagem_boas_vindas.color = ft.Colors.RED_400
+            mensagem_boas_vindas.color = "red400"
         else:
             mensagem_boas_vindas.value = f"Bem-vindo de volta, {campo_nome.value}! 🚀"
-            mensagem_boas_vindas.color = ft.Colors.GREEN_400
+            mensagem_boas_vindas.color = "green400"
             campo_nome.value = "" # Limpa o campo após inserir
             
-        # O page.update() é essencial para aplicar as mudanças na tela
+        # Atualiza a página para aplicar as mudanças
         page.update()
 
-    # Botão de confirmação
+    # Botão de confirmação corrigido
     botao_inserir = ft.ElevatedButton(
-        text="Inserir no Dashboard",
+        content=ft.Text("Inserir no Dashboard", color="white"),
         icon=ft.Icons.CHECK,
         style=ft.ButtonStyle(
-            color=ft.Colors.WHITE,
-            bgcolor=ft.Colors.BLUE_700,
+            bgcolor="blue700",
         ),
         on_click=atualizar_dashboard
     )
@@ -60,21 +59,22 @@ def main(page: ft.Page):
             controls=[
                 titulo,
                 mensagem_boas_vindas,
-                ft.Divider(height=20, color=ft.Colors.TRANSPARENT), # Espaçador
+                ft.Divider(height=20, color="transparent"), # Espaçador seguro
                 campo_nome,
                 botao_inserir
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=15
         ),
-        bgcolor=ft.Colors.SURFACE_VARIANT,
+        bgcolor="#20242C", # Cor escura customizada em Hexadecimal (substitui o SURFACE_VARIANT)
         padding=40,
         border_radius=15,
-        animate_size=300, # Adiciona uma animação suave quando o texto mudar de tamanho
+        animate_size=300,
     )
 
     # 4. Adicionar o Dashboard à página
     page.add(dashboard_card)
 
+# Inicialização do App
 if __name__ == "__main__":
     ft.app(target=main)
